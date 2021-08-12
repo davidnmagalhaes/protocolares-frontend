@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 export const PTContent = styled.section`
   background: #003d93;
@@ -10,11 +11,12 @@ export const PTContent = styled.section`
 export const PTLogin = styled.div`
   background-image: url('media/bg-login.png');
   background-repeat: no-repeat;
-  width: 70%;
+  width: 80%;
   display: flex;
   flex-grow: 1;
   align-items: center;
   flex-direction: column;
+  background-size: contain;
 `;
 
 export const PTImageLogin = styled.div`
@@ -24,6 +26,7 @@ export const PTImageLogin = styled.div`
   display: flex;
   flex-grow: 1;
   justify-content: center;
+  background-size: contain;
 `;
 
 export const PTBrand = styled.div`
@@ -32,7 +35,7 @@ export const PTBrand = styled.div`
   width: 100%;
   height: 158px;
   background-position: center;
-  margin-top: 120px;
+  margin-top: 13%;
   margin-bottom: 30px;
 `;
 
@@ -54,4 +57,42 @@ export const PTFields = styled.div`
   margin-top: 50px;
   width: 100%;
   align-items: center;
+`;
+
+export const PTBetween = styled.div`
+  display: flex;
+  width: 50%;
+  justify-content: space-between;
+`;
+
+export const PTLink = styled(Link)`
+  color: #fff;
+  text-decoration: none;
+  margin-top: 10px;
+  font-size: 14px;
+  &:hover {
+    color: #fcec5c;
+    transition: 1s;
+  }
+`;
+
+export const PTButton = styled.button`
+  background: #fcec5c;
+  border-radius: 70px;
+  padding: 10px;
+  width: 20%;
+  border: 0;
+  color: #003d93;
+  margin-top: 5%;
+  &:hover {
+    background: #fff;
+    transition: 2s;
+    cursor: pointer;
+  }
+`;
+
+export const PTAuthor = styled(PTParagraph)`
+  margin-top: 5%;
+  font-size: 12px;
+  color: #ffffff8c;
 `;

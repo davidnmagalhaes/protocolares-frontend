@@ -7,20 +7,43 @@ import {
   PTTitle,
   PTParagraph,
   PTFields,
+  PTBetween,
+  PTLink,
+  PTButton,
+  PTAuthor,
 } from './components/login/Login';
 import { makeStyles } from '@material-ui/core/styles';
-import TextField from '@material-ui/core/TextField';
+import { TextField, Checkbox, FormControlLabel } from '@material-ui/core';
+import { Formik } from 'formik';
 
 function App() {
   const useStyles = makeStyles((theme) => ({
     MuiFormControl: {
-      background: '#fff',
       width: '50%',
       '& .MuiFilledInput-underline:after': {
         'border-bottom': '2px solid #fcec5c',
       },
       '& .MuiFormLabel-root.Mui-focused': {
         color: '#003d93',
+      },
+      '& .MuiFilledInput-input': {
+        color: '#003D93',
+        background: '#fff',
+      },
+    },
+    Checkbox: {
+      '& .MuiCheckbox-colorSecondary.Mui-checked': {
+        color: '#fcec5c',
+      },
+      '& .MuiIconButton-label': {
+        color: '#fcec5c',
+      },
+      '& .MuiCheckbox-colorSecondary.Mui-checked': {
+        color: '#fcec5c',
+      },
+      '& .MuiTypography-body1': {
+        'font-family': 'Poppins',
+        'font-size': '14px',
       },
     },
   }));
@@ -34,16 +57,36 @@ function App() {
         <PTParagraph>Faça o login para acessar o sistema.</PTParagraph>
         <PTFields>
           <TextField
+            type="text"
             className={classes.MuiFormControl}
             label="E-mail"
             variant="filled"
+            name="email"
           />
           <TextField
             type="password"
             className={classes.MuiFormControl}
             label="Senha"
             variant="filled"
+            name="email"
           />
+
+          <PTBetween>
+            <FormControlLabel
+              className={classes.Checkbox}
+              control={
+                <Checkbox
+                  className={classes.Checkbox}
+                  inputProps={{ 'aria-label': 'uncontrolled-checkbox' }}
+                  label="Lembrar acesso"
+                />
+              }
+              label="Lembrar senha"
+            />
+            <PTLink to="">Esqueceu sua senha?</PTLink>
+          </PTBetween>
+          <PTButton type="submit">Acessar</PTButton>
+          <PTAuthor>Esta aplicação foi desenvolvida por Morgan CS</PTAuthor>
         </PTFields>
       </PTLogin>
       <PTImageLogin />
