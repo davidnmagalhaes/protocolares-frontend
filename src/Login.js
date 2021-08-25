@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import {
   PTContent,
   PTLogin,
@@ -14,9 +14,10 @@ import {
 } from './components/login/Login';
 import { makeStyles } from '@material-ui/core/styles';
 import { TextField, Checkbox, FormControlLabel } from '@material-ui/core';
-import { Formik } from 'formik';
+import { Context } from './services/context';
 
 function App() {
+  const { setEmail, setPassword, handleLogin } = useContext(Context);
   const useStyles = makeStyles((theme) => ({
     MuiFormControl: {
       width: '50%',
@@ -36,9 +37,6 @@ function App() {
         color: '#fcec5c',
       },
       '& .MuiIconButton-label': {
-        color: '#fcec5c',
-      },
-      '& .MuiCheckbox-colorSecondary.Mui-checked': {
         color: '#fcec5c',
       },
       '& .MuiTypography-body1': {
@@ -62,6 +60,7 @@ function App() {
             label="E-mail"
             variant="filled"
             name="email"
+            onChange={(e) => setEmail(e.target.value)}
           />
           <TextField
             type="password"
@@ -69,6 +68,7 @@ function App() {
             label="Senha"
             variant="filled"
             name="email"
+            onChange={(e) => setPassword(e.target.value)}
           />
 
           <PTBetween>
@@ -85,7 +85,7 @@ function App() {
             />
             <PTLink to="">Esqueceu sua senha?</PTLink>
           </PTBetween>
-          <PTButton type="submit">Acessar</PTButton>
+          <PTButton onClick={handleLogin}>Acessar</PTButton>
           <PTAuthor>Esta aplicação foi desenvolvida por Morgan CS</PTAuthor>
         </PTFields>
       </PTLogin>

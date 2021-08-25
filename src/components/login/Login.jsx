@@ -35,7 +35,7 @@ export const PTBrand = styled.div`
   width: 100%;
   height: 158px;
   background-position: center;
-  margin-top: 13%;
+  margin-top: 8%;
   margin-bottom: 30px;
 `;
 

@@ -1,4 +1,7 @@
 import React from 'react';
+import Navbar from '../../components/sidebar/Navbar';
 
-const Overview = () => <>Teste</>;
+const Overview = () => {
+  return <Navbar />;
+};
 export default Overview;

@@ -35,7 +35,7 @@ export default function useAuth() {
       .then((r) => {
         localStorage.setItem('@token', JSON.stringify(r.data.token));
         localStorage.setItem('@prefix', JSON.stringify(r.data.group));
-        history.push('/dashboard');
+        history.push('/inicio');
         refreshPage();
       })
       .catch((err) => {
@@ -43,9 +43,11 @@ export default function useAuth() {
           icon: 'error',
           title: 'Oops...',
           text:
-            err.response.status === 500
-              ? 'Erro de comunicação! Tente novamente mais tarde.'
-              : err.response.data.message,
+            err.response.status === 401
+              ? 'Usuário ou senha incorretos.'
+              : err.response.status === 500
+              ? 'Estamos em manutenção, tente novamente mais tarde!'
+              : 'Houve um problema, tente novamente mais tarde!',
           confirmButtonText: 'Fechar',
         });
       });
