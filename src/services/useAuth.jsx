@@ -34,7 +34,8 @@ export default function useAuth() {
       .post('login', { email: email, password: password })
       .then((r) => {
         localStorage.setItem('@token', JSON.stringify(r.data.token));
-        localStorage.setItem('@prefix', JSON.stringify(r.data.group));
+        localStorage.setItem('@prefix', JSON.stringify(r.data.user.type));
+        localStorage.setItem('@name', JSON.stringify(r.data.user.name));
         history.push('/inicio');
         refreshPage();
       })

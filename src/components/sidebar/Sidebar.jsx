@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { NavLink } from 'react-router-dom';
 
 export const Sidebar = styled.div`
   display: flex;
@@ -23,7 +24,7 @@ export const Ul = styled.div`
   font-size: 14px;
 `;
 
-export const Li = styled.a`
+export const Li = styled(NavLink)`
   display: flex;
   width: 88%;
   height: 43px;
@@ -44,6 +45,12 @@ export const Li = styled.a`
   :visited {
     color: #fff;
     text-decoration: none;
+  }
+
+  &.${(props) => props.activeClassName} {
+    background: #ffffff21;
+    border-right: 3px solid #fced69;
+    color: #fff;
   }
 `;
 

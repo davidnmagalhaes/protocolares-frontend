@@ -19,41 +19,44 @@ const Navbar = () => {
     <Sidebar>
       <Brand />
       <Ul>
-        <Li href="/inicio">
+        <Li
+          to="/inicio"
+          activeClassName={pathname === '/inicio' ? 'active' : ''}
+        >
           <Icon src="media/sidebar/inicio-icon.svg" /> Início
         </Li>
-        <Li href="/processos">
+        <Li to="/processos">
           <Icon src="media/sidebar/processos-icon.svg" /> Processos
         </Li>
-        <Li href="/area-critica">
+        <Li to="/area-critica">
           <Icon src="media/sidebar/area-critica-icon.svg" /> Área crítica
         </Li>
-        <Li href="/pacientes">
+        <Li to="/pacientes">
           <Icon src="media/sidebar/pacientes-icon.svg" /> Pacientes
         </Li>
-        <Li href="/relatorios">
+        <Li to="/relatorios">
           <Icon src="media/sidebar/relatorios-icon.svg" /> Relatórios
         </Li>
-        <Li href="/filas">
+        <Li to="/filas">
           <Icon src="media/sidebar/filas-icon.svg" /> Filas
         </Li>
-        <Li href="/profissionais">
+        <Li to="/profissionais">
           <Icon src="media/sidebar/profissionais-icon.svg" /> Profissionais
         </Li>
-        <Li href="/unidades">
+        <Li to="/unidades">
           <Icon src="media/sidebar/unidades-icon.svg" /> Unidades
         </Li>
-        <Li href="/agentes">
+        <Li to="/agentes">
           <Icon src="media/sidebar/agentes-icon.svg" /> Agentes
         </Li>
-        <Li href="/psf">
+        <Li to="/psf">
           <Icon src="media/sidebar/psf-icon.svg" /> PSF
         </Li>
-        <Li href="/finalidades-de-uso">
+        <Li to="/finalidades-de-uso">
           <Icon src="media/sidebar/finalidade-de-uso-icon.svg" /> Finalidades de
           uso
         </Li>
-        <Li href="/exames">
+        <Li to="/exames">
           <Icon src="media/sidebar/exames-icon.svg" /> Exames
         </Li>
       </Ul>
