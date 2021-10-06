@@ -10,6 +10,7 @@ import { Context } from './services/context';
 import { AuthProvider } from './services/context';
 import history from './services/history';
 import Overview from './pages/overview/Overview';
+import Professionals from './pages/professionals/Professionals';
 
 function CustomRoute({ isPrivate, ...rest }) {
   const { loading, authenticated } = useContext(Context);
@@ -25,7 +26,10 @@ function CustomRoute({ isPrivate, ...rest }) {
   return <Route {...rest} />;
 }
 
-const rotas = [{ path: '/inicio', component: Overview }];
+const rotas = [
+  { path: '/inicio', component: Overview },
+  { path: '/profissionais', component: Professionals },
+];
 
 export default function Routes() {
   return (
