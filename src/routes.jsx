@@ -11,12 +11,34 @@ import { AuthProvider } from './services/context';
 import history from './services/history';
 import Overview from './pages/overview/Overview';
 import Professionals from './pages/professionals/Professionals';
+import BeatLoader from 'react-spinners/BeatLoader';
+import { css } from '@emotion/react';
 
 function CustomRoute({ isPrivate, ...rest }) {
   const { loading, authenticated } = useContext(Context);
 
+  const override = css`
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #0000004f;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  `;
+
   if (loading) {
-    return 'Carregando';
+    return (
+      <BeatLoader
+        loading={loading}
+        css={override}
+        size={30}
+        color={'#4a5185'}
+      />
+    );
   }
 
   if (isPrivate && !authenticated) {

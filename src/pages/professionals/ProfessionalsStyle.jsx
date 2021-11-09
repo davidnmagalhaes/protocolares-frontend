@@ -17,7 +17,12 @@ export const ContentInner = styled.section`
 export const ContentInside = styled.div`
   display: flex;
   width: 100%;
-  min-height: 200px;
+  min-height: 20px;
   margin-top: 45px;
   justify-content: space-between;
+`;
+
+export const Local = styled.img`
+  width: 6%;
+  margin-left: 15px;
 `;

@@ -33,9 +33,9 @@ export default function useAuth() {
     api
       .post('login', { email: email, password: password })
       .then((r) => {
-        localStorage.setItem('@token', JSON.stringify(r.data.token));
-        localStorage.setItem('@prefix', JSON.stringify(r.data.user.type));
-        localStorage.setItem('@name', JSON.stringify(r.data.user.name));
+        localStorage.setItem('@token', JSON.stringify(r.data.model.token));
+        localStorage.setItem('@prefix', JSON.stringify(r.data.model.group));
+        localStorage.setItem('@name', JSON.stringify(r.data.model.name));
         history.push('/inicio');
         refreshPage();
       })
@@ -57,7 +57,7 @@ export default function useAuth() {
   function handleLogout() {
     setAuthenticated(false);
     localStorage.removeItem('@token');
-    localStorage.removeItem('@user_group');
+    localStorage.removeItem('@prefix');
     api.defaults.headers.Authorization = undefined;
     history.push('/');
   }
@@ -68,6 +68,7 @@ export default function useAuth() {
     authenticated,
     setAuthenticated,
     loading,
+    setLoading,
     handleLogin,
     handleLogout,
     redirect,
