@@ -15,7 +15,7 @@ const HeaderComponent = ({ title, button }) => {
     <>
       <Header>
         <Titles>
-          <TitleSm>Início &gt; Profissionais</TitleSm>
+          <TitleSm>Gestão de </TitleSm>
           <TitleLg>
             {title}
             {button}

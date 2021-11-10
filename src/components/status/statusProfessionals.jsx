@@ -2,15 +2,17 @@ import React, { useState } from 'react';
 import Switch from '@material-ui/core/Switch';
 import api from '../../services/api';
 import { Prefix } from '../../services/prefix';
+import { mutate as mutateGlobal } from 'swr';
 
-const StatusProfessionals = ({ id, active }) => {
+const StatusProfessionals = ({ id, active, params }) => {
   const [checked, setChecked] = useState(active);
 
   const handleChange = () => {
     api
       .put(Prefix + '/professionals/' + id, { active: !active ? true : false })
       .then((r) => {
-        setChecked(r.data.model);
+        mutateGlobal(params);
+        setChecked(r.data.model.active);
       });
   };
 

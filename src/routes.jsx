@@ -11,6 +11,7 @@ import { AuthProvider } from './services/context';
 import history from './services/history';
 import Overview from './pages/overview/Overview';
 import Professionals from './pages/professionals/Professionals';
+import Units from './pages/units/Units';
 import BeatLoader from 'react-spinners/BeatLoader';
 import { css } from '@emotion/react';
 
@@ -51,6 +52,7 @@ function CustomRoute({ isPrivate, ...rest }) {
 const rotas = [
   { path: '/inicio', component: Overview },
   { path: '/profissionais', component: Professionals },
+  { path: '/unidades', component: Units },
 ];
 
 export default function Routes() {

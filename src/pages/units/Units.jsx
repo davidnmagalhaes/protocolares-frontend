@@ -1,13 +1,8 @@
 import React, { useState } from 'react';
 import Navbar from '../../components/sidebar/Navbar';
 import Header from '../../components/header/Header';
-import {
-  Content,
-  ContentInner,
-  ContentInside,
-  Local,
-} from './ProfessionalsStyle';
-import ModalAddProfessional from '../../components/modal/add/ModalAddProfessional';
+import { Content, ContentInner, ContentInside, Local } from './UnitsStyle';
+import ModalAddUnits from '../../components/modal/add/ModalAddUnits';
 import Datatable from '../../components/datatable/Datatable';
 import Options from './Options';
 import { useFetch } from '../../components/hooks/useFetch';
@@ -18,16 +13,15 @@ const Profissionals = () => {
   const [page, setPage] = useState(1);
   const [perPage, setPerPage] = useState(15);
 
-  const params =
-    Prefix + '/professionals?page=' + page + '&per_page=' + perPage;
-  const professionals = useFetch(params);
-  if (!professionals.data) return '';
+  const params = Prefix + '/units?page=' + page + '&per_page=' + perPage;
+  const units = useFetch(params);
+  if (!units.data) return '';
 
   const HandlePage = (e) => {
     setPage(e);
   };
 
-  let data = professionals.data?.models?.data?.map((map) => {
+  let data = units.data?.models?.data?.map((map) => {
     return {
       cols: [
         { title: map.name, subtitle: 'COD.: ' + map.id },
@@ -57,24 +51,21 @@ const Profissionals = () => {
     };
   });
 
-  const columns = ['Nome', 'Especialidade', 'Regional', 'Status'];
+  const columns = ['Unidade', 'Endereço', 'Telefone', 'Status'];
 
   return (
     <Content>
       <Navbar />
       <ContentInner>
-        <Header
-          title="Profissionais"
-          button={<ModalAddProfessional params={params} />}
-        />
+        <Header title="Unidades" button={<ModalAddUnits params={params} />} />
         <ContentInside>
           <Datatable
             columns={columns}
             options={<Options />}
             data={data}
-            deleteRequest="professionals"
+            deleteRequest="units"
             params={params}
-            lastPage={professionals.data?.models.last_page}
+            lastPage={units.data?.models.last_page}
             page={page}
             setPage={HandlePage}
           />

@@ -22,7 +22,7 @@ import { Actions } from './ModalAddProfessionalStyle';
 import { makeStyles } from '@material-ui/core/styles';
 import { Context } from '../../../services/context';
 
-const ModalAddProfessional = ({ params }) => {
+const ModalAddUnits = ({ params }) => {
   const [open, setOpen] = useState(false);
   const { setLoading } = useContext(Context);
 
@@ -38,7 +38,7 @@ const ModalAddProfessional = ({ params }) => {
     setOpen(false);
     setLoading(true);
     api
-      .post(Prefix + '/professionals', values)
+      .post(Prefix + '/units', values)
       .then(() => {
         Swal.fire({
           icon: 'success',
@@ -90,7 +90,7 @@ const ModalAddProfessional = ({ params }) => {
           aria-describedby="alert-dialog-description"
         >
           <DialogTitle id="alert-dialog-title">
-            {'Cadastro de Profissionais'}
+            {'Cadastro de Unidades'}
           </DialogTitle>
           <DialogContent>
             <DialogContentText id="alert-dialog-description">
@@ -98,8 +98,8 @@ const ModalAddProfessional = ({ params }) => {
                 initialValues={{
                   name: '',
                   active: true,
-                  local: 1,
-                  specialties: '',
+                  phone: '',
+                  another_phone: '',
                 }}
                 validationSchema={Schema}
                 onSubmit={HandleRegister}
@@ -163,4 +163,4 @@ const ModalAddProfessional = ({ params }) => {
     </>
   );
 };
-export default ModalAddProfessional;
+export default ModalAddUnits;

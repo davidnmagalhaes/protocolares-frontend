@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext } from 'react';
 import { Formik, Form } from 'formik';
 import Schema from '../schemas/schemaAddProfessional';
 import {
@@ -20,24 +20,41 @@ import { mutate as mutateGlobal } from 'swr';
 import { Actions } from './ModalEditProfessionalStyle';
 import { makeStyles } from '@material-ui/core/styles';
 import { Context } from '../../../services/context';
+import { useFetch } from '../../hooks/useFetch';
 
-const ModalEditProfessional = ({ params, open, setOpen }) => {
+const ModalEditProfessional = ({ id, params, open, setOpen }) => {
   const { setLoading } = useContext(Context);
+
+  const infoEdit = useFetch(Prefix + '/professionals/' + id);
 
   const HandleRegister = (values) => {
     setLoading(true);
-    api.post(Prefix + '/professionals', values).then(() => {
-      Swal.fire({
-        icon: 'success',
-        title: 'Parabéns!',
-        text: 'Dados cadastrados com sucesso!',
-        confirmButtonText: 'Fechar',
-        confirmButtonColor: '#99c77f',
-      }).then(() => {
-        mutateGlobal(params);
-        setLoading(false);
+    api
+      .put(Prefix + '/professionals/' + id, values)
+      .then(() => {
+        Swal.fire({
+          icon: 'success',
+          title: 'Parabéns!',
+          text: 'Dados atualizados com sucesso!',
+          confirmButtonText: 'Fechar',
+          confirmButtonColor: '#99c77f',
+        }).then(() => {
+          mutateGlobal(params);
+          setLoading(false);
+        });
+      })
+      .catch(() => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops!',
+          text: 'Ocorreu um erro, tente novamente...',
+          confirmButtonText: 'Fechar',
+          confirmButtonColor: '#99c77f',
+        }).then(() => {
+          mutateGlobal(params);
+          setLoading(false);
+        });
       });
-    });
   };
 
   const useStyles = makeStyles(() => ({
@@ -66,10 +83,10 @@ const ModalEditProfessional = ({ params, open, setOpen }) => {
           <DialogContentText id="alert-dialog-description">
             <Formik
               initialValues={{
-                name: '',
-                active: true,
-                local: 1,
-                specialties: '',
+                name: infoEdit.data?.model.name,
+                active: infoEdit.data?.model.active,
+                local: infoEdit.data?.model.local ? 1 : 0,
+                specialties: infoEdit.data?.model.specialties,
               }}
               validationSchema={Schema}
               onSubmit={HandleRegister}
