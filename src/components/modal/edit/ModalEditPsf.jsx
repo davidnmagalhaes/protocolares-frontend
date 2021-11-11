@@ -1,10 +1,8 @@
 import React, { useContext } from 'react';
 import { Formik, Form } from 'formik';
-import Schema from '../schemas/schemaProfessional';
+import Schema from '../schemas/schemaPsf';
 import {
-  Select,
   TextField,
-  MenuItem,
   Button,
   Dialog,
   DialogActions,
@@ -17,20 +15,20 @@ import api from '../../../services/api';
 import { Prefix } from '../../../services/prefix';
 import Swal from 'sweetalert2';
 import { mutate as mutateGlobal } from 'swr';
-import { Actions } from './ModalEditProfessionalStyle';
+import { Actions } from './ModalEditPsfStyle';
 import { makeStyles } from '@material-ui/core/styles';
 import { Context } from '../../../services/context';
 import { useFetch } from '../../hooks/useFetch';
 
-const ModalEditProfessional = ({ id, params, open, setOpen }) => {
+const ModalEditPsf = ({ id, params, open, setOpen }) => {
   const { setLoading } = useContext(Context);
 
-  const infoEdit = useFetch(Prefix + '/professionals/' + id);
+  const infoEdit = useFetch(Prefix + '/programs/' + id);
 
   const HandleRegister = (values) => {
     setLoading(true);
     api
-      .put(Prefix + '/professionals/' + id, values)
+      .put(Prefix + '/programs/' + id, values)
       .then(() => {
         Swal.fire({
           icon: 'success',
@@ -77,7 +75,7 @@ const ModalEditProfessional = ({ id, params, open, setOpen }) => {
         aria-describedby="alert-dialog-description"
       >
         <DialogTitle id="alert-dialog-title">
-          {'Atualização de Profissionais'}
+          {'Atualização de PSF'}
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
@@ -85,8 +83,6 @@ const ModalEditProfessional = ({ id, params, open, setOpen }) => {
               initialValues={{
                 name: infoEdit.data?.model.name,
                 active: infoEdit.data?.model.active,
-                local: infoEdit.data?.model.local ? 1 : 0,
-                specialties: infoEdit.data?.model.specialties,
               }}
               validationSchema={Schema}
               onSubmit={HandleRegister}
@@ -102,31 +98,6 @@ const ModalEditProfessional = ({ id, params, open, setOpen }) => {
                     onChange={handleChange}
                     error={touched.name && Boolean(errors.name)}
                     helperText={touched.name && errors.name}
-                    className={classes.formControl}
-                  />
-
-                  <Select
-                    fullWidth
-                    name="local"
-                    label="Local"
-                    value={values.local}
-                    onChange={handleChange}
-                    error={touched.local && Boolean(errors.local)}
-                    helperText={touched.local && errors.local}
-                    className={classes.formControl}
-                  >
-                    <MenuItem value={1}>Profissional local</MenuItem>
-                    <MenuItem value={0}>Profissional não é local</MenuItem>
-                  </Select>
-
-                  <TextField
-                    fullWidth
-                    name="specialties"
-                    label="Especialidade"
-                    value={values.specialties}
-                    onChange={handleChange}
-                    error={touched.specialties && Boolean(errors.specialties)}
-                    helperText={touched.specialties && errors.specialties}
                     className={classes.formControl}
                   />
 
@@ -149,4 +120,4 @@ const ModalEditProfessional = ({ id, params, open, setOpen }) => {
     </>
   );
 };
-export default ModalEditProfessional;
+export default ModalEditPsf;

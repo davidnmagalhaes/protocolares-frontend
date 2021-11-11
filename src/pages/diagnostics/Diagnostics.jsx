@@ -1,41 +1,38 @@
 import React, { useState } from 'react';
 import Navbar from '../../components/sidebar/Navbar';
 import Header from '../../components/header/Header';
-import { Content, ContentInner, ContentInside } from './UnitsStyle';
-import ModalAddUnits from '../../components/modal/add/ModalAddUnits';
+import { Content, ContentInner, ContentInside } from './DiagnosticsStyle';
+import ModalAddDiagnostics from '../../components/modal/add/ModalAddDiagnostics';
 import Datatable from '../../components/datatable/Datatable';
 import Options from './Options';
 import { useFetch } from '../../components/hooks/useFetch';
 import { Prefix } from '../../services/prefix';
-import StatusUnits from '../../components/status/statusUnits';
+import StatusDiagnostics from '../../components/status/statusDiagnostics';
 
-const Profissionals = () => {
+const Diagnostics = () => {
   const [page, setPage] = useState(1);
   const perPage = 15;
 
-  const params = Prefix + '/units?page=' + page + '&per_page=' + perPage;
-  const units = useFetch(params);
-  if (!units.data) return '';
+  const params = Prefix + '/diagnostics?page=' + page + '&per_page=' + perPage;
+  const diagnostics = useFetch(params);
+  if (!diagnostics.data) return '';
 
   const HandlePage = (e) => {
     setPage(e);
   };
 
-  let data = units.data?.models?.data?.map((map) => {
+  let data = diagnostics.data?.models?.data?.map((map) => {
     return {
       cols: [
         { title: map.name, subtitle: 'COD.: ' + map.id },
-        {
-          title: map.address + ', ' + map.number,
-          subtitle: map.neighborhood + ', ' + map.city,
-        },
-        {
-          title: map.phone,
-          subtitle: map.another_phone,
-        },
+
         {
           title: (
-            <StatusUnits id={map.id} active={map.active} params={params} />
+            <StatusDiagnostics
+              id={map.id}
+              active={map.active}
+              params={params}
+            />
           ),
           subtitle: null,
         },
@@ -46,21 +43,24 @@ const Profissionals = () => {
     };
   });
 
-  const columns = ['Unidade', 'Endereço', 'Telefone', 'Status'];
+  const columns = ['PSF', 'Status'];
 
   return (
     <Content>
       <Navbar />
       <ContentInner>
-        <Header title="Unidades" button={<ModalAddUnits params={params} />} />
+        <Header
+          title="Doenças"
+          button={<ModalAddDiagnostics params={params} />}
+        />
         <ContentInside>
           <Datatable
             columns={columns}
             options={<Options />}
             data={data}
-            deleteRequest="units"
+            deleteRequest="diagnostics"
             params={params}
-            lastPage={units.data?.models.last_page}
+            lastPage={diagnostics.data?.models.last_page}
             page={page}
             setPage={HandlePage}
           />
@@ -69,4 +69,4 @@ const Profissionals = () => {
     </Content>
   );
 };
-export default Profissionals;
+export default Diagnostics;

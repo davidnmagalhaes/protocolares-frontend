@@ -16,7 +16,7 @@ import StatusProfessionals from '../../components/status/statusProfessionals';
 
 const Profissionals = () => {
   const [page, setPage] = useState(1);
-  const [perPage, setPerPage] = useState(15);
+  const perPage = 15;
 
   const params =
     Prefix + '/professionals?page=' + page + '&per_page=' + perPage;

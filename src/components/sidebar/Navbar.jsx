@@ -25,8 +25,8 @@ const Navbar = () => {
         >
           <Icon src="media/sidebar/inicio-icon.svg" /> Início
         </Li>
-        <Li to="/processos">
-          <Icon src="media/sidebar/processos-icon.svg" /> Processos
+        <Li to="/doencas">
+          <Icon src="media/sidebar/doencas-icon.svg" /> Doenças
         </Li>
         <Li to="/area-critica">
           <Icon src="media/sidebar/area-critica-icon.svg" /> Área crítica

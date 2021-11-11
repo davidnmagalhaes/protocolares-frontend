@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { IconOptions } from '../../components/datatable/DataTableStyle';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-import ModalEditUnits from '../../components/modal/edit/ModalEditUnits';
+import ModalEditPsf from '../../components/modal/edit/ModalEditPsf';
 
 const Options = ({ id }) => {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -39,7 +39,7 @@ const Options = ({ id }) => {
         <MenuItem onClick={handleMenu}>Editar</MenuItem>
       </Menu>
 
-      <ModalEditUnits open={menu.edit} setOpen={handleMenu} id={id} />
+      <ModalEditPsf open={menu.edit} setOpen={handleMenu} id={id} />
     </>
   );
 };

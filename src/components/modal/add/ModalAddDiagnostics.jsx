@@ -1,11 +1,9 @@
 import React, { useState, useContext } from 'react';
 import { AddButton } from '../../../global/Styles';
 import { Formik, Form } from 'formik';
-import Schema from '../schemas/schemaProfessional';
+import Schema from '../schemas/schemaDiagnostics';
 import {
-  Select,
   TextField,
-  MenuItem,
   Button,
   Dialog,
   DialogActions,
@@ -18,11 +16,11 @@ import api from '../../../services/api';
 import { Prefix } from '../../../services/prefix';
 import Swal from 'sweetalert2';
 import { mutate as mutateGlobal } from 'swr';
-import { Actions } from './ModalAddProfessionalStyle';
+import { Actions } from './ModalAddDiagnosticsStyle';
 import { makeStyles } from '@material-ui/core/styles';
 import { Context } from '../../../services/context';
 
-const ModalAddProfessional = ({ params }) => {
+const ModalAddUnits = ({ params }) => {
   const [open, setOpen] = useState(false);
   const { setLoading } = useContext(Context);
 
@@ -38,7 +36,7 @@ const ModalAddProfessional = ({ params }) => {
     setOpen(false);
     setLoading(true);
     api
-      .post(Prefix + '/professionals', values)
+      .post(Prefix + '/diagnostics', values)
       .then(() => {
         Swal.fire({
           icon: 'success',
@@ -90,7 +88,7 @@ const ModalAddProfessional = ({ params }) => {
           aria-describedby="alert-dialog-description"
         >
           <DialogTitle id="alert-dialog-title">
-            {'Cadastro de Profissionais'}
+            {'Cadastro de Doenças'}
           </DialogTitle>
           <DialogContent>
             <DialogContentText id="alert-dialog-description">
@@ -98,8 +96,6 @@ const ModalAddProfessional = ({ params }) => {
                 initialValues={{
                   name: '',
                   active: true,
-                  local: 1,
-                  specialties: '',
                 }}
                 validationSchema={Schema}
                 onSubmit={HandleRegister}
@@ -115,31 +111,6 @@ const ModalAddProfessional = ({ params }) => {
                       onChange={handleChange}
                       error={touched.name && Boolean(errors.name)}
                       helperText={touched.name && errors.name}
-                      className={classes.formControl}
-                    />
-
-                    <Select
-                      fullWidth
-                      name="local"
-                      label="Local"
-                      value={values.local}
-                      onChange={handleChange}
-                      error={touched.local && Boolean(errors.local)}
-                      helperText={touched.local && errors.local}
-                      className={classes.formControl}
-                    >
-                      <MenuItem value={1}>Profissional local</MenuItem>
-                      <MenuItem value={0}>Profissional não é local</MenuItem>
-                    </Select>
-
-                    <TextField
-                      fullWidth
-                      name="specialties"
-                      label="Especialidade"
-                      value={values.specialties}
-                      onChange={handleChange}
-                      error={touched.specialties && Boolean(errors.specialties)}
-                      helperText={touched.specialties && errors.specialties}
                       className={classes.formControl}
                     />
 
@@ -163,4 +134,4 @@ const ModalAddProfessional = ({ params }) => {
     </>
   );
 };
-export default ModalAddProfessional;
+export default ModalAddUnits;

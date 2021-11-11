@@ -1,11 +1,9 @@
 import React, { useState, useContext } from 'react';
 import { AddButton } from '../../../global/Styles';
 import { Formik, Form } from 'formik';
-import Schema from '../schemas/schemaAddProfessional';
+import Schema from '../schemas/schemaUnits';
 import {
-  Select,
   TextField,
-  MenuItem,
   Button,
   Dialog,
   DialogActions,
@@ -100,6 +98,12 @@ const ModalAddUnits = ({ params }) => {
                   active: true,
                   phone: '',
                   another_phone: '',
+                  email: '',
+                  address: '',
+                  neighborhood: '',
+                  number: '',
+                  zipcode: '',
+                  city: '',
                 }}
                 validationSchema={Schema}
                 onSubmit={HandleRegister}
@@ -118,28 +122,95 @@ const ModalAddUnits = ({ params }) => {
                       className={classes.formControl}
                     />
 
-                    <Select
+                    <TextField
                       fullWidth
-                      name="local"
-                      label="Local"
-                      value={values.local}
+                      name="email"
+                      label="E-mail"
+                      value={values.email}
                       onChange={handleChange}
-                      error={touched.local && Boolean(errors.local)}
-                      helperText={touched.local && errors.local}
+                      error={touched.email && Boolean(errors.email)}
+                      helperText={touched.email && errors.email}
                       className={classes.formControl}
-                    >
-                      <MenuItem value={1}>Profissional local</MenuItem>
-                      <MenuItem value={0}>Profissional não é local</MenuItem>
-                    </Select>
+                    />
 
                     <TextField
                       fullWidth
-                      name="specialties"
-                      label="Especialidade"
-                      value={values.specialties}
+                      name="zipcode"
+                      label="CEP"
+                      value={values.zipcode}
                       onChange={handleChange}
-                      error={touched.specialties && Boolean(errors.specialties)}
-                      helperText={touched.specialties && errors.specialties}
+                      error={touched.zipcode && Boolean(errors.zipcode)}
+                      helperText={touched.zipcode && errors.zipcode}
+                      className={classes.formControl}
+                    />
+
+                    <TextField
+                      fullWidth
+                      name="address"
+                      label="Endereço"
+                      value={values.address}
+                      onChange={handleChange}
+                      error={touched.address && Boolean(errors.address)}
+                      helperText={touched.address && errors.address}
+                      className={classes.formControl}
+                    />
+
+                    <TextField
+                      fullWidth
+                      name="number"
+                      label="Número"
+                      value={values.number}
+                      onChange={handleChange}
+                      error={touched.number && Boolean(errors.number)}
+                      helperText={touched.number && errors.number}
+                      className={classes.formControl}
+                    />
+
+                    <TextField
+                      fullWidth
+                      name="neighborhood"
+                      label="Bairro"
+                      value={values.neighborhood}
+                      onChange={handleChange}
+                      error={
+                        touched.neighborhood && Boolean(errors.neighborhood)
+                      }
+                      helperText={touched.neighborhood && errors.neighborhood}
+                      className={classes.formControl}
+                    />
+
+                    <TextField
+                      fullWidth
+                      name="city"
+                      label="Cidade"
+                      value={values.city}
+                      onChange={handleChange}
+                      error={touched.city && Boolean(errors.city)}
+                      helperText={touched.city && errors.city}
+                      className={classes.formControl}
+                    />
+
+                    <TextField
+                      fullWidth
+                      name="phone"
+                      label="Telefone"
+                      value={values.phone}
+                      onChange={handleChange}
+                      error={touched.phone && Boolean(errors.phone)}
+                      helperText={touched.phone && errors.phone}
+                      className={classes.formControl}
+                    />
+
+                    <TextField
+                      fullWidth
+                      name="another_phone"
+                      label="Celular"
+                      value={values.another_phone}
+                      onChange={handleChange}
+                      error={
+                        touched.another_phone && Boolean(errors.another_phone)
+                      }
+                      helperText={touched.another_phone && errors.another_phone}
                       className={classes.formControl}
                     />
 
