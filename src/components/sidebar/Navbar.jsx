@@ -28,17 +28,17 @@ const Navbar = () => {
         <Li to="/doencas">
           <Icon src="media/sidebar/doencas-icon.svg" /> Doenças
         </Li>
-        <Li to="/area-critica">
+        {/* <Li to="/area-critica">
           <Icon src="media/sidebar/area-critica-icon.svg" /> Área crítica
-        </Li>
-        <Li to="/pacientes">
+        </Li> */}
+        {/* <Li to="/pacientes">
           <Icon src="media/sidebar/pacientes-icon.svg" /> Pacientes
-        </Li>
-        <Li to="/relatorios">
+        </Li> */}
+        {/* <Li to="/relatorios">
           <Icon src="media/sidebar/relatorios-icon.svg" /> Relatórios
-        </Li>
-        <Li to="/filas">
-          <Icon src="media/sidebar/filas-icon.svg" /> Filas
+        </Li> */}
+        <Li to="/categorias-de-especialidades-medicas">
+          <Icon src="media/sidebar/filas-icon.svg" /> Categorias
         </Li>
         <Li to="/profissionais">
           <Icon src="media/sidebar/profissionais-icon.svg" /> Profissionais
@@ -56,8 +56,8 @@ const Navbar = () => {
           <Icon src="media/sidebar/finalidade-de-uso-icon.svg" /> Finalidades de
           uso
         </Li>
-        <Li to="/exames">
-          <Icon src="media/sidebar/exames-icon.svg" /> Exames
+        <Li to="/especialidades-medicas">
+          <Icon src="media/sidebar/exames-icon.svg" /> Especialidades médicas
         </Li>
       </Ul>
       <Logout onClick={handleLogout}>

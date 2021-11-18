@@ -8,6 +8,7 @@ import Options from './Options';
 import { useFetch } from '../../components/hooks/useFetch';
 import { Prefix } from '../../services/prefix';
 import StatusPsf from '../../components/status/statusPsf';
+import Loading from '../../components/loading/Loading';
 
 const Psf = () => {
   const [page, setPage] = useState(1);
@@ -23,24 +24,19 @@ const Psf = () => {
 
   let data = programs.data?.models?.data?.map((map) => {
     return {
-      cols: [
-        { title: map.name, subtitle: 'COD.: ' + map.id },
-
-        {
-          title: <StatusPsf id={map.id} active={map.active} params={params} />,
-          subtitle: null,
-        },
-      ],
+      cols: [{ title: map.name, subtitle: 'COD.: ' + map.id }],
       id: map.id,
       checked: false,
       options: <Options id={map.id} />,
+      status: <StatusPsf id={map.id} active={map.active} params={params} />,
     };
   });
 
-  const columns = ['PSF', 'Status'];
+  const columns = ['PSF'];
 
   return (
     <Content>
+      <Loading />
       <Navbar />
       <ContentInner>
         <Header title="PSF" button={<ModalAddPsf params={params} />} />

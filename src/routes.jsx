@@ -14,24 +14,15 @@ import Professionals from './pages/professionals/Professionals';
 import Units from './pages/units/Units';
 import Psf from './pages/psf/Psf';
 import Diagnostics from './pages/diagnostics/Diagnostics';
+import Purposes from './pages/purposes/Purposes';
+import MedicalSpecialties from './pages/medicalSpecialties/MedicalSpecialties';
+import Agents from './pages/agents/Agents';
+import MedicalSpecialtyCategories from './pages/medicalSpecialtyCategories/MedicalSpecialtyCategories';
 import BeatLoader from 'react-spinners/BeatLoader';
-import { css } from '@emotion/react';
+import { override } from './global/loading';
 
 function CustomRoute({ isPrivate, ...rest }) {
   const { loading, authenticated } = useContext(Context);
-
-  const override = css`
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: #0000004f;
-    width: 100%;
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  `;
 
   if (loading) {
     return (
@@ -57,6 +48,13 @@ const rotas = [
   { path: '/unidades', component: Units },
   { path: '/psf', component: Psf },
   { path: '/doencas', component: Diagnostics },
+  { path: '/finalidades-de-uso', component: Purposes },
+  { path: '/especialidades-medicas', component: MedicalSpecialties },
+  { path: '/agentes', component: Agents },
+  {
+    path: '/categorias-de-especialidades-medicas',
+    component: MedicalSpecialtyCategories,
+  },
 ];
 
 export default function Routes() {

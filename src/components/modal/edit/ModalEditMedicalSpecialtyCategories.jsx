@@ -1,7 +1,9 @@
 import React, { useContext } from 'react';
 import { Formik, Form } from 'formik';
-import Schema from '../schemas/schemaPsf';
+import Schema from '../schemas/schemaMedicalSpecialtyCategories';
 import {
+  Select,
+  MenuItem,
   TextField,
   Button,
   Dialog,
@@ -15,20 +17,21 @@ import api from '../../../services/api';
 import { Prefix } from '../../../services/prefix';
 import Swal from 'sweetalert2';
 import { mutate as mutateGlobal } from 'swr';
-import { Actions } from './ModalEditPsfStyle';
+import { Actions } from './ModalEditMedicalSpecialtyCategoriesStyle';
 import { makeStyles } from '@material-ui/core/styles';
 import { Context } from '../../../services/context';
 import { useFetch } from '../../hooks/useFetch';
 
-const ModalEditDiagnostics = ({ id, params, open, setOpen }) => {
+const ModalEditMedicalSpecialtyCategories = ({ id, params, open, setOpen }) => {
   const { setLoading } = useContext(Context);
 
-  const infoEdit = useFetch(Prefix + '/diagnostics/' + id);
+  const infoEdit = useFetch(Prefix + '/medical-specialty-categories/' + id);
+  const listMedicalSpecialties = useFetch(Prefix + '/medical-specialties');
 
   const HandleRegister = (values) => {
     setLoading(true);
     api
-      .put(Prefix + '/diagnostics/' + id, values)
+      .put(Prefix + '/medical-specialty-categories/' + id, values)
       .then(() => {
         Swal.fire({
           icon: 'success',
@@ -75,13 +78,14 @@ const ModalEditDiagnostics = ({ id, params, open, setOpen }) => {
         aria-describedby="alert-dialog-description"
       >
         <DialogTitle id="alert-dialog-title">
-          {'Atualização de Doenças'}
+          {'Atualização de Categorias de Especialidades Médicas'}
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
             <Formik
               initialValues={{
                 name: infoEdit.data?.model.name,
+                medical_specialty_id: infoEdit.data?.model.medical_specialty_id,
                 active: infoEdit.data?.model.active,
               }}
               validationSchema={Schema}
@@ -100,6 +104,31 @@ const ModalEditDiagnostics = ({ id, params, open, setOpen }) => {
                     helperText={touched.name && errors.name}
                     className={classes.formControl}
                   />
+
+                  <Select
+                    fullWidth
+                    name="medical_specialty_id"
+                    label="Categoria de especialidade"
+                    value={values.medical_specialty_id}
+                    displayEmpty
+                    onChange={handleChange}
+                    error={
+                      touched.medical_specialty_id &&
+                      Boolean(errors.medical_specialty_id)
+                    }
+                    helperText={
+                      touched.medical_specialty_id &&
+                      errors.medical_specialty_id
+                    }
+                    className={classes.formControl}
+                  >
+                    <MenuItem value="" disabled>
+                      Escolha uma especialidade
+                    </MenuItem>
+                    {listMedicalSpecialties.data?.models?.data?.map((map) => {
+                      return <MenuItem value={map.id}>{map.name}</MenuItem>;
+                    })}
+                  </Select>
 
                   <Actions>
                     <DialogActions>
@@ -120,4 +149,4 @@ const ModalEditDiagnostics = ({ id, params, open, setOpen }) => {
     </>
   );
 };
-export default ModalEditDiagnostics;
+export default ModalEditMedicalSpecialtyCategories;

@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { Formik, Form } from 'formik';
-import Schema from '../schemas/schemaPsf';
+import Schema from '../schemas/schemaPurposes';
 import {
   TextField,
   Button,
@@ -15,20 +15,20 @@ import api from '../../../services/api';
 import { Prefix } from '../../../services/prefix';
 import Swal from 'sweetalert2';
 import { mutate as mutateGlobal } from 'swr';
-import { Actions } from './ModalEditPsfStyle';
+import { Actions } from './ModalEditPurposesStyle';
 import { makeStyles } from '@material-ui/core/styles';
 import { Context } from '../../../services/context';
 import { useFetch } from '../../hooks/useFetch';
 
-const ModalEditDiagnostics = ({ id, params, open, setOpen }) => {
+const ModalEditPurposes = ({ id, params, open, setOpen }) => {
   const { setLoading } = useContext(Context);
 
-  const infoEdit = useFetch(Prefix + '/diagnostics/' + id);
+  const infoEdit = useFetch(Prefix + '/purposes/' + id);
 
   const HandleRegister = (values) => {
     setLoading(true);
     api
-      .put(Prefix + '/diagnostics/' + id, values)
+      .put(Prefix + '/purposes/' + id, values)
       .then(() => {
         Swal.fire({
           icon: 'success',
@@ -75,7 +75,7 @@ const ModalEditDiagnostics = ({ id, params, open, setOpen }) => {
         aria-describedby="alert-dialog-description"
       >
         <DialogTitle id="alert-dialog-title">
-          {'Atualização de Doenças'}
+          {'Atualização de Finalidades de Uso'}
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
@@ -120,4 +120,4 @@ const ModalEditDiagnostics = ({ id, params, open, setOpen }) => {
     </>
   );
 };
-export default ModalEditDiagnostics;
+export default ModalEditPurposes;

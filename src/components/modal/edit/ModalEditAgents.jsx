@@ -1,8 +1,10 @@
 import React, { useContext } from 'react';
 import { Formik, Form } from 'formik';
-import Schema from '../schemas/schemaPsf';
+import Schema from '../schemas/schemaAgents';
 import {
+  Select,
   TextField,
+  MenuItem,
   Button,
   Dialog,
   DialogActions,
@@ -15,20 +17,21 @@ import api from '../../../services/api';
 import { Prefix } from '../../../services/prefix';
 import Swal from 'sweetalert2';
 import { mutate as mutateGlobal } from 'swr';
-import { Actions } from './ModalEditPsfStyle';
+import { Actions } from './ModalEditAgentsStyle';
 import { makeStyles } from '@material-ui/core/styles';
 import { Context } from '../../../services/context';
 import { useFetch } from '../../hooks/useFetch';
 
-const ModalEditDiagnostics = ({ id, params, open, setOpen }) => {
+const ModalEditAgents = ({ id, params, open, setOpen }) => {
   const { setLoading } = useContext(Context);
 
-  const infoEdit = useFetch(Prefix + '/diagnostics/' + id);
+  const infoEdit = useFetch(Prefix + '/agents/' + id);
+  const listPSF = useFetch(Prefix + '/programs');
 
   const HandleRegister = (values) => {
     setLoading(true);
     api
-      .put(Prefix + '/diagnostics/' + id, values)
+      .put(Prefix + '/agents/' + id, values)
       .then(() => {
         Swal.fire({
           icon: 'success',
@@ -75,13 +78,14 @@ const ModalEditDiagnostics = ({ id, params, open, setOpen }) => {
         aria-describedby="alert-dialog-description"
       >
         <DialogTitle id="alert-dialog-title">
-          {'Atualização de Doenças'}
+          {'Atualização de Agentes'}
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
             <Formik
               initialValues={{
                 name: infoEdit.data?.model.name,
+                program_id: infoEdit.data?.model.program_id,
                 active: infoEdit.data?.model.active,
               }}
               validationSchema={Schema}
@@ -100,6 +104,25 @@ const ModalEditDiagnostics = ({ id, params, open, setOpen }) => {
                     helperText={touched.name && errors.name}
                     className={classes.formControl}
                   />
+
+                  <Select
+                    fullWidth
+                    name="program_id"
+                    label="PSF"
+                    value={values.program_id}
+                    displayEmpty
+                    onChange={handleChange}
+                    error={touched.program_id && Boolean(errors.program_id)}
+                    helperText={touched.program_id && errors.program_id}
+                    className={classes.formControl}
+                  >
+                    <MenuItem value="" disabled>
+                      Escolha um PSF
+                    </MenuItem>
+                    {listPSF.data?.models?.data?.map((map) => {
+                      return <MenuItem value={map.id}>{map.name}</MenuItem>;
+                    })}
+                  </Select>
 
                   <Actions>
                     <DialogActions>
@@ -120,4 +143,4 @@ const ModalEditDiagnostics = ({ id, params, open, setOpen }) => {
     </>
   );
 };
-export default ModalEditDiagnostics;
+export default ModalEditAgents;

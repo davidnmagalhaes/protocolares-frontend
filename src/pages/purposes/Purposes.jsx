@@ -1,40 +1,40 @@
 import React, { useState } from 'react';
 import Navbar from '../../components/sidebar/Navbar';
 import Header from '../../components/header/Header';
-import { Content, ContentInner, ContentInside } from './DiagnosticsStyle';
-import ModalAddDiagnostics from '../../components/modal/add/ModalAddDiagnostics';
+import { Content, ContentInner, ContentInside } from './PurposesStyle';
+import ModalAddPurposes from '../../components/modal/add/ModalAddPurposes';
 import Datatable from '../../components/datatable/Datatable';
 import Options from './Options';
 import { useFetch } from '../../components/hooks/useFetch';
 import { Prefix } from '../../services/prefix';
-import StatusDiagnostics from '../../components/status/statusDiagnostics';
+import StatusPurposes from '../../components/status/statusPurposes';
 import Loading from '../../components/loading/Loading';
 
-const Diagnostics = () => {
+const Purposes = () => {
   const [page, setPage] = useState(1);
   const perPage = 15;
 
-  const params = Prefix + '/diagnostics?page=' + page + '&per_page=' + perPage;
-  const diagnostics = useFetch(params);
-  if (!diagnostics.data) return '';
+  const params = Prefix + '/purposes?page=' + page + '&per_page=' + perPage;
+  const purposes = useFetch(params);
+  if (!purposes.data) return '';
 
   const HandlePage = (e) => {
     setPage(e);
   };
 
-  let data = diagnostics.data?.models?.data?.map((map) => {
+  let data = purposes.data?.models?.data?.map((map) => {
     return {
       cols: [{ title: map.name, subtitle: 'COD.: ' + map.id }],
       id: map.id,
       checked: false,
       options: <Options id={map.id} />,
       status: (
-        <StatusDiagnostics id={map.id} active={map.active} params={params} />
+        <StatusPurposes id={map.id} active={map.active} params={params} />
       ),
     };
   });
 
-  const columns = ['Doença'];
+  const columns = ['Nome'];
 
   return (
     <Content>
@@ -42,17 +42,17 @@ const Diagnostics = () => {
       <Navbar />
       <ContentInner>
         <Header
-          title="Doenças"
-          button={<ModalAddDiagnostics params={params} />}
+          title="Finalidades de Uso"
+          button={<ModalAddPurposes params={params} />}
         />
         <ContentInside>
           <Datatable
             columns={columns}
             options={<Options />}
             data={data}
-            deleteRequest="diagnostics"
+            deleteRequest="purposes"
             params={params}
-            lastPage={diagnostics.data?.models.last_page}
+            lastPage={purposes.data?.models.last_page}
             page={page}
             setPage={HandlePage}
           />
@@ -61,4 +61,4 @@ const Diagnostics = () => {
     </Content>
   );
 };
-export default Diagnostics;
+export default Purposes;

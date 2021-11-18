@@ -1,9 +1,11 @@
 import React, { useState, useContext } from 'react';
 import { AddButton } from '../../../global/Styles';
 import { Formik, Form } from 'formik';
-import Schema from '../schemas/schemaDiagnostics';
+import Schema from '../schemas/schemaAgents';
 import {
+  Select,
   TextField,
+  MenuItem,
   Button,
   Dialog,
   DialogActions,
@@ -16,13 +18,27 @@ import api from '../../../services/api';
 import { Prefix } from '../../../services/prefix';
 import Swal from 'sweetalert2';
 import { mutate as mutateGlobal } from 'swr';
-import { Actions } from './ModalAddDiagnosticsStyle';
+import { Actions } from './ModalAddAgentsStyle';
 import { makeStyles } from '@material-ui/core/styles';
 import { Context } from '../../../services/context';
+import { useFetch } from '../../hooks/useFetch';
 
-const ModalAddDiagnostics = ({ params }) => {
+const ModalAddAgents = ({ params }) => {
   const [open, setOpen] = useState(false);
   const { setLoading } = useContext(Context);
+
+  const useStyles = makeStyles(() => ({
+    formControl: {
+      marginTop: '15px !important',
+      '& .MuiSelect-select.MuiSelect-select': {
+        marginTop: '15px',
+      },
+    },
+  }));
+
+  const classes = useStyles();
+
+  const listPSF = useFetch(Prefix + '/programs');
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -36,7 +52,7 @@ const ModalAddDiagnostics = ({ params }) => {
     setOpen(false);
     setLoading(true);
     api
-      .post(Prefix + '/diagnostics', values)
+      .post(Prefix + '/agents', values)
       .then(() => {
         Swal.fire({
           icon: 'success',
@@ -63,17 +79,6 @@ const ModalAddDiagnostics = ({ params }) => {
       });
   };
 
-  const useStyles = makeStyles(() => ({
-    formControl: {
-      marginTop: '15px !important',
-      '& .MuiSelect-select.MuiSelect-select': {
-        marginTop: '15px',
-      },
-    },
-  }));
-
-  const classes = useStyles();
-
   return (
     <>
       {!open ? (
@@ -88,13 +93,14 @@ const ModalAddDiagnostics = ({ params }) => {
           aria-describedby="alert-dialog-description"
         >
           <DialogTitle id="alert-dialog-title">
-            {'Cadastro de Doenças'}
+            {'Cadastro de Agentes'}
           </DialogTitle>
           <DialogContent>
             <DialogContentText id="alert-dialog-description">
               <Formik
                 initialValues={{
                   name: '',
+                  program_id: '',
                   active: true,
                 }}
                 validationSchema={Schema}
@@ -113,6 +119,25 @@ const ModalAddDiagnostics = ({ params }) => {
                       helperText={touched.name && errors.name}
                       className={classes.formControl}
                     />
+
+                    <Select
+                      fullWidth
+                      name="program_id"
+                      label="PSF"
+                      value={values.program_id}
+                      displayEmpty
+                      onChange={handleChange}
+                      error={touched.program_id && Boolean(errors.program_id)}
+                      helperText={touched.program_id && errors.program_id}
+                      className={classes.formControl}
+                    >
+                      <MenuItem value="" disabled>
+                        Escolha um PSF
+                      </MenuItem>
+                      {listPSF.data?.models?.data?.map((map) => {
+                        return <MenuItem value={map.id}>{map.name}</MenuItem>;
+                      })}
+                    </Select>
 
                     <Actions>
                       <DialogActions>
@@ -134,4 +159,4 @@ const ModalAddDiagnostics = ({ params }) => {
     </>
   );
 };
-export default ModalAddDiagnostics;
+export default ModalAddAgents;

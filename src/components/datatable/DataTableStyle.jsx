@@ -75,11 +75,11 @@ export const DeleteOne = styled.div`
 `;
 
 export const Options = styled.div`
-  width: 5%;
+  width: 7%;
   color: #464e5f;
   font-size: 11.68px;
   display: flex;
-  justify-content: start;
+  justify-content: end;
   align-items: center;
   letter-spacing: 1.2px;
   font-weight: bold;

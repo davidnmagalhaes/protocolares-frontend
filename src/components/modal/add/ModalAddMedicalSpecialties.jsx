@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { AddButton } from '../../../global/Styles';
 import { Formik, Form } from 'formik';
-import Schema from '../schemas/schemaDiagnostics';
+import Schema from '../schemas/schemaMedicalSpecialties';
 import {
   TextField,
   Button,
@@ -16,11 +16,11 @@ import api from '../../../services/api';
 import { Prefix } from '../../../services/prefix';
 import Swal from 'sweetalert2';
 import { mutate as mutateGlobal } from 'swr';
-import { Actions } from './ModalAddDiagnosticsStyle';
+import { Actions } from './ModalAddMedicalSpecialtiesStyle';
 import { makeStyles } from '@material-ui/core/styles';
 import { Context } from '../../../services/context';
 
-const ModalAddDiagnostics = ({ params }) => {
+const ModalAddMedicalSpecialties = ({ params }) => {
   const [open, setOpen] = useState(false);
   const { setLoading } = useContext(Context);
 
@@ -36,7 +36,7 @@ const ModalAddDiagnostics = ({ params }) => {
     setOpen(false);
     setLoading(true);
     api
-      .post(Prefix + '/diagnostics', values)
+      .post(Prefix + '/medical-specialties', values)
       .then(() => {
         Swal.fire({
           icon: 'success',
@@ -88,7 +88,7 @@ const ModalAddDiagnostics = ({ params }) => {
           aria-describedby="alert-dialog-description"
         >
           <DialogTitle id="alert-dialog-title">
-            {'Cadastro de Doenças'}
+            {'Cadastro de Especialidades Médicas'}
           </DialogTitle>
           <DialogContent>
             <DialogContentText id="alert-dialog-description">
@@ -134,4 +134,4 @@ const ModalAddDiagnostics = ({ params }) => {
     </>
   );
 };
-export default ModalAddDiagnostics;
+export default ModalAddMedicalSpecialties;

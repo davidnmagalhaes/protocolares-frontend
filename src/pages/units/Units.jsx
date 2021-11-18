@@ -8,6 +8,7 @@ import Options from './Options';
 import { useFetch } from '../../components/hooks/useFetch';
 import { Prefix } from '../../services/prefix';
 import StatusUnits from '../../components/status/statusUnits';
+import Loading from '../../components/loading/Loading';
 
 const Profissionals = () => {
   const [page, setPage] = useState(1);
@@ -33,23 +34,19 @@ const Profissionals = () => {
           title: map.phone,
           subtitle: map.another_phone,
         },
-        {
-          title: (
-            <StatusUnits id={map.id} active={map.active} params={params} />
-          ),
-          subtitle: null,
-        },
       ],
       id: map.id,
       checked: false,
       options: <Options id={map.id} />,
+      status: <StatusUnits id={map.id} active={map.active} params={params} />,
     };
   });
 
-  const columns = ['Unidade', 'Endereço', 'Telefone', 'Status'];
+  const columns = ['Unidade', 'Endereço', 'Telefone'];
 
   return (
     <Content>
+      <Loading />
       <Navbar />
       <ContentInner>
         <Header title="Unidades" button={<ModalAddUnits params={params} />} />

@@ -5,7 +5,7 @@ export const Sidebar = styled.div`
   display: flex;
   width: 20%;
   background: #000;
-  min-height: 100%;
+  min-height: 100vh;
   padding: 2% 0 2% 0;
   background-image: url('media/bg-sidebar-protocolares.jpg');
   background-attachment: fixed;

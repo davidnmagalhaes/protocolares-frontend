@@ -59,7 +59,7 @@ const Datatable = ({
   const classes = useStyles();
   const { setLoading } = useContext(Context);
 
-  const widthColumns = 90 / columns.length;
+  const widthColumns = 86 / columns.length;
 
   const HandleChecked = (e, id) => {
     let newArray = [...infoData];
@@ -129,6 +129,7 @@ const Datatable = ({
               {map}
             </TableTh>
           ))}
+          <Options>Status</Options>
           <Options>
             {infoData?.filter((fill) => fill.checked == true).length > 0 ? (
               <RemoveOptions src="../../../media/remove.svg" onClick={Remove} />
@@ -156,6 +157,7 @@ const Datatable = ({
                   <span>{map.subtitle}</span>
                 </TableCol>
               ))}
+              <Options>{map.status}</Options>
               <Options>{map.options}</Options>
             </TableRow>
           ))

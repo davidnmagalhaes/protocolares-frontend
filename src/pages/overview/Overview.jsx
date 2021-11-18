@@ -25,11 +25,13 @@ import {
   DescriptionTitle,
   DescriptionText,
 } from './OverviewStyle';
+import Loading from '../../components/loading/Loading';
 
 const Overview = () => {
   const userName = localStorage.getItem('@name').replace(/[\\"]/g, '');
   return (
     <Content>
+      <Loading />
       <Navbar />
       <ContentInner>
         <Header>
